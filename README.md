@@ -1,6 +1,8 @@
 # kaleid-liner
 CSS-based line numbering made easy
 
+![Illya joke.](https://my.mixtape.moe/iqqkta.gif)
+
 What's this?
 ------------
 
