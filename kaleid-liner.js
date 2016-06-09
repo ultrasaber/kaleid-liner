@@ -48,9 +48,6 @@ outputData += "</pre>"; // close tags
 
 console.log(outputData);
 
-console.log("preclass: " + preClass);
-console.log("codeclass: " + codeClass);
-
 // Write output data to file
 fs.writeFile(inputFileName + ".html", 
 		(flags.get("css") ? cssMarkup + "\n" : "") + outputData, 
