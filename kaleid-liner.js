@@ -7,7 +7,7 @@ var fs = require("fs");
 var flags = require("flags");
 
 // Define command-line flags
-flags.defineString("file").setDescription("The input filename.");
+flags.defineMultiString("file").setDescription("An input filename. Each file must be specified with its own 'file' flag.");
 flags.defineBoolean("css").setDescription("When TRUE, includes a CSS snippet for demonstration.");
 flags.defineString("preClass").setDescription("The CSS class to be used for <pre> elements.");
 flags.defineString("codeClass").setDescription("The CSS class to be used for <code> elements.");
@@ -26,33 +26,37 @@ function createCSSClass(name)
 var preClass = createCSSClass(flags.get("preClass"));
 var codeClass = createCSSClass(flags.get("codeClass"));
 
-// Get input filename from command-line args
-var inputFileName = flags.get("file");
+// Loop through each input file
+flags.get("file").forEach(function(fileName)
+{
+	// Get input filename from command-line args
+	var inputFileName = fileName;
 
-// Read data from the file
-var inputData = fs.readFileSync(inputFileName).toString();
-var lines = inputData.split("\n");
+	// Read data from the file
+	var inputData = fs.readFileSync(inputFileName).toString();
+	var lines = inputData.split("\n");
 
-// Generate output data
-var outputData = "<pre" + preClass + ">\n"; // Open tags
+	// Generate output data
+	var outputData = "<pre" + preClass + ">\n"; // Open tags
 
-lines.forEach(function(line)
-		{
-			var outputLine = "<code" + codeClass + ">" + line.replace(/(\r\n|\n|\r)/gm,"").replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') + "</code>\n"; // Escape HTML tags.
-			outputData += outputLine;
-		});
+	lines.forEach(function(line)
+	{
+		var outputLine = "<code" + codeClass + ">" + line.replace(/(\r\n|\n|\r)/gm,"").replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') + "</code>\n"; // Escape HTML tags.
+		outputData += outputLine;
+	});
 
-outputData += "</pre>"; // close tags
+	outputData += "</pre>"; // close tags
 
-console.log(outputData);
-
-// Write output data to file
-fs.writeFile(inputFileName + ".html", 
+	// Write output data to file
+	fs.writeFile(inputFileName + ".html", 
 		(flags.get("css") ? cssMarkup + "\n" : "") + outputData, 
 		function(err)
 		{
-			if(err){
+			if(err)
+			{
 				return console.error(err);
 			}
-			console.log("kaleid-liner: HTML generated successfully.")
+			console.log("kaleid-liner: HTML generated for " + inputFileName + " successfully.")
 		});
+});
+
