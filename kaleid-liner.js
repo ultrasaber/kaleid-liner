@@ -1,7 +1,5 @@
 /*
  * kaleid-liner: Sets up HTML code to support line numbering through CSS.
- *
- * Usage: node kaleid-liner.js [filename]
  */
 
 // Imports
