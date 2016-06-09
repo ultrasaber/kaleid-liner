@@ -4,11 +4,22 @@ CSS-based line numbering made easy
 What's this?
 ------------
 
-`kaleid-liner` is a script that generates HTML markup for displaying code. The purpose of this is to assist in numbering lines via CSS, but other features may be added.
+`kaleid-liner` is a script that generates HTML markup for displaying code. It's primarily intended for displaying line numbers through CSS, but it supports various other options that make styling markup easier.
+
+Dependencies
+------------
+
+`kaleid-liner` makes use of these libraries:
+
+* [`flags`](https://github.com/dpup/node-flags)
+
+Node.js libraries may be installed via `npm`.
 
 Usage
 -----
 
-`node kaleid-liner.js [filename]`
+Simple usage:
+`node kaleid-liner.js --file=[filename]`
 
-`kaleid-liner` will create a new file containing the generated HTML as well as a sample CSS snippet for demonstration purposes. Generated code can be added to any web page and be further styled.
+For info on additional options:
+`node kaleid-liner.js --help`
